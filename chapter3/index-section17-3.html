@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NameInput</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="nameInputContainer"></div>
+
+  <script type="text/babel">
+    const NameInput = () => {
+      const [name, setName] = React.useState("NONAME");
+      const handleOnChange = (event) => setName(event.target.value);
+
+      return (
+        <div>
+          <input type="text" value={name} onChange={handleOnChange} />
+          <p>こんにちは、{name} さん</p>
+        </div>
+      );
+    };
+
+    const domContainer = document.querySelector("#nameInputContainer");
+    ReactDOM.render(<NameInput />, domContainer);
+  </script>
+</body>
+</html>

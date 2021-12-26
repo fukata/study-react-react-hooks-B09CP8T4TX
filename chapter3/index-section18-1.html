@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counter</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="counterContainer"></div>
+
+  <script type="text/babel">
+    const Counter = () => {
+      const [counter, setCounter] = React.useState(0);
+      const countAdd = () => setCounter(counter + 1);
+      const countSub = () => setCounter(counter - 1);
+      const countReset = () => setCounter(0);
+
+      return (
+        <div>
+          <CounterText count={counter} />
+          <button onClick={countAdd}>ボタン +1</button>
+          <button onClick={countSub}>ボタン -1</button>
+          <button onClick={countReset}>リセット</button>
+        </div>
+      );
+    };
+
+    const CounterText = ({count}) => {
+      return (
+        <p>現在のカウント数：{count}</p>
+      );
+    };
+
+    const domContainer = document.querySelector("#counterContainer");
+    ReactDOM.render(<Counter />, domContainer);
+  </script>
+</body>
+</html>
