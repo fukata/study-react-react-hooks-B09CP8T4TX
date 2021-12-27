@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LoginControl</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const LoginControl = () => {
+      const [loggedIn, setLoggedIn] = React.useState(false);
+      const handleOnClickLogin = () => { setLoggedIn(true) };
+      const handleOnClickLogout = () => { setLoggedIn(false) };
+
+      if (loggedIn) {
+        return <LogoutButton handleOnClickLogout={handleOnClickLogout} />;
+      } else {
+        return <LoginButton  handleOnClickLogin={handleOnClickLogin} />;
+      }
+    };
+
+
+    const LoginButton = ({handleOnClickLogin}) => {
+      return (
+        <button onClick={handleOnClickLogin}>ログイン</button>
+      );
+    };
+
+    const LogoutButton = ({handleOnClickLogout}) => {
+      return (
+        <button onClick={handleOnClickLogout}>ログアウト</button>
+      );
+    };
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<LoginControl />, domContainer);
+  </script>
+</body>
+</html>

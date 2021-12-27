@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>InputText</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const InputTextForm = () => {
+      const [inputText, setInputText] = React.useState("");
+      const [text, setText] = React.useState("");
+      const handleOnChangeInputText = (e) => { setInputText(e.target.value) };
+      const handleOnClickButton = (e) => { setText(inputText) };
+      return (
+        <div>
+          <p>I love {text} !!</p>
+          <InputText
+            inputText={inputText}
+            handleOnChangeInputText={handleOnChangeInputText}
+            handleOnClickButton={handleOnClickButton}
+          />
+        </div>
+      );
+    };
+
+    const InputText = ({inputText, handleOnChangeInputText, handleOnClickButton}) => {
+      return (
+        <div>
+          <input type="text" value={inputText} onChange={handleOnChangeInputText} />
+          <button onClick={handleOnClickButton}>入力</button>
+        </div>
+      )
+    }
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<InputTextForm />, domContainer);
+  </script>
+</body>
+</html>

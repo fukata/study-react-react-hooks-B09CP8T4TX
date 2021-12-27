@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const CheckboxForm = () => {
+      const values = [
+        { id: 1, item: "マウス" },
+        { id: 2, item: "モニタ" },
+        { id: 3, item: "キーボード" },
+      ];
+      const [checkedValues, setCheckedValues] = React.useState([]);
+      const handleOnChange = (event) => {
+        const value = event.target.value;
+        const idx = checkedValues.indexOf(value);
+        if (idx > -1) {
+          checkedValues.splice(idx, 1);
+          setCheckedValues([...checkedValues]);
+        } else {
+          setCheckedValues([...checkedValues, value]);
+        }
+      };
+      const checkboxes = values.map((obj) => {
+        return (
+          <span key={obj.id}>
+            <input name="color" type="checkbox" value={obj.item} id={obj.item} onChange={handleOnChange} checked={checkedValues.indexOf(obj.item) > -1} />
+            <label htmlFor={obj.item}>{obj.item}</label>
+          </span>
+        );
+      });
+      return (
+        <div>
+          <p>現在選択されている値：{checkedValues.join("、")}</p>
+          {checkboxes}
+        </div>
+      );
+    };
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<CheckboxForm />, domContainer);
+  </script>
+</body>
+</html>

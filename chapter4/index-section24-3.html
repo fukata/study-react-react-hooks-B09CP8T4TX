@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RadioButton</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const RadioButtonForm = () => {
+      const values = [
+        { id: 1, item: "赤" },
+        { id: 2, item: "青" },
+        { id: 3, item: "黄" },
+      ];
+      const [selectedValue, setSelectedValue] = React.useState("青");
+      const handleOnChange = (event) => {
+        setSelectedValue(event.target.value);
+      };
+      const radioButtons = values.map((obj) => {
+        return (
+          <span key={obj.id}>
+            <input name="color" type="radio" value={obj.item} id={obj.item} onChange={handleOnChange} checked={selectedValue === obj.item} />
+            <label htmlFor={obj.item}>{obj.item}</label>
+          </span>
+        );
+      });
+      return (
+        <div>
+          <p>現在選択されている値：{selectedValue}</p>
+          {radioButtons}
+        </div>
+      );
+    };
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<RadioButtonForm />, domContainer);
+  </script>
+</body>
+</html>

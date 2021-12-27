@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SelectBox</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const SelectBoxForm = () => {
+      const values = [
+        { id: 1, item: "HTML" },
+        { id: 2, item: "CSS" },
+        { id: 3, item: "JavaScript" },
+      ];
+      const [selectedValue, setSelectedValue] = React.useState("JavaScript");
+      const options = values.map((obj) => <option key={obj.id} value={obj.item}>{obj.item}</option>);
+      const handleOnChange = (event) => {
+        setSelectedValue(event.target.value);
+      };
+      return (
+        <div>
+          <p>現在選択されている値：{selectedValue}</p>
+          <select onChange={handleOnChange} value={selectedValue}>
+            {options}
+          </select>
+        </div>
+      );
+    };
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<SelectBoxForm />, domContainer);
+  </script>
+</body>
+</html>
