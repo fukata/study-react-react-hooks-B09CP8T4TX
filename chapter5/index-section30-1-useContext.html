@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>useContext</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const App = () => {
+      return (
+        <I18nProvider>
+          <First />
+        </I18nProvider>
+      );
+    };
+
+    const I18nContext = React.createContext();
+    const I18n = { text: "Hello from I18nContext" };
+    const I18nProvider = ({children}) => {
+      return (
+        <I18nContext.Provider value={I18n}>
+          {children}
+        </I18nContext.Provider>
+      );
+    };
+
+    const First = () => {
+      return (
+        <div>
+          <h1>First</h1>
+          <Second />
+        </div>
+      );
+    }
+
+    const Second = () => {
+      return (
+        <div>
+          <h2>Second</h2>
+          <Third />
+        </div>
+      );
+    }
+
+    const Third = () => {
+      const i18n = React.useContext(I18nContext);
+      return (
+        <div>
+          <h3>Third</h3>
+          { i18n.text }
+        </div>
+      );
+    }
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<App />, domContainer);
+  </script>
+</body>
+</html>

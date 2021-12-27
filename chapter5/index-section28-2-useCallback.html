@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>useCallback</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const CountForm = () => {
+      const [countStateA, setCountStateA] = React.useState(0);
+      const [countStateB, setCountStateB] = React.useState(0);
+
+      // React.useCallbackを介さないとCountFormが再描画される度にcountIncrement関数が再生成されてしまいButtonコンポーネントがメモ化されない
+      const countIncrementA = React.useCallback(() => { setCountStateA(prevCount => prevCount + 1) }, [countStateA]);
+      const countIncrementB = React.useCallback(() => { setCountStateB(prevCount => prevCount + 1) }, [countStateB]);
+
+      return (
+        <div>
+          <p>Aボタン: {countStateA}</p>
+          <p>Bボタン: {countStateB}</p>
+
+          <Button counterState={countIncrementA} buttonValue="Aボタン" />
+          <Button counterState={countIncrementB} buttonValue="Bボタン" />
+        </div>
+      );
+    };
+
+    const Button = React.memo(({counterState, buttonValue}) => {
+      console.log(`${buttonValue}ボタンがクリックされました`);
+      return (
+        <button onClick={counterState}>{buttonValue}</button>
+      );
+    });
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<CountForm />, domContainer);
+  </script>
+</body>
+</html>

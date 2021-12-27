@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>クリーンアップが必要な副作業関数</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const TimerForm = () => {
+      const [displayTimer, setDisplayTimer] = React.useState(true);
+      const toggleDisplayTimer = () => setDisplayTimer(!displayTimer);
+
+      return (
+        <div>
+          <button onClick={toggleDisplayTimer}>
+            { displayTimer ? "タイマー非表示" : "タイマー表示" }
+          </button>
+          { displayTimer && <Timer /> }
+        </div>
+      );
+    };
+
+    const Timer = () => {
+      const [count, setCount] = React.useState(0);
+      const countAdd = () => {
+        setCount((prevCount) => prevCount + 1);
+        console.log("カウントアップ +1");
+      };
+      const countReset = () => { setCount(0) };
+      const callback = () => {
+        const timer = setInterval(countAdd, 1000);
+        return () => {
+          console.log("timerが削除されました！");
+          clearInterval(timer);
+        };
+      };
+      React.useEffect(callback, []);
+
+      return (
+        <div>
+          <p>現在のカウント数：{count}</p>
+          <button onClick={countReset}>リセット</button>
+        </div>
+      );
+    };
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<TimerForm />, domContainer);
+  </script>
+</body>
+</html>

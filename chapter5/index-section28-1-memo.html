@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React.memo</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const CountForm = () => {
+      const [countStateA, setCountStateA] = React.useState(0);
+      const [countStateB, setCountStateB] = React.useState(0);
+
+      const countIncrementA = () => { setCountStateA(prevCount => prevCount + 1) };
+      const countIncrementB = () => { setCountStateB(prevCount => prevCount + 1) };
+
+      return (
+        <div>
+          <CountResult text="Aボタン" countState={countStateA} />
+          <CountResult text="Bボタン" countState={countStateB} />
+
+          <button onClick={countIncrementA}>Aボタン</button>
+          <button onClick={countIncrementB}>Bボタン</button>
+        </div>
+      );
+    };
+
+    const CountResult = React.memo(({text, countState}) => {
+      console.log(`${text}ボタンがクリックされました`);
+      return (
+        <p>{text}: {countState}</p>
+      );
+    });
+
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<CountForm />, domContainer);
+  </script>
+</body>
+</html>

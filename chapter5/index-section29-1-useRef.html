@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>useRef</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- babelを読み込むことでJSXを使うことができるようになる -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <!-- Reactコンポーネントが表示されるDOMコンテナ -->
+  <div id="app"></div>
+
+  <script type="text/babel">
+    const App = () => {
+      const inputRefObject = React.useRef(null);
+      const forcusInputRefObject = () => {
+        inputRefObject.current.focus();
+      };
+
+      return (
+        <div>
+          <input ref={inputRefObject} type="text" />
+
+          <button onClick={forcusInputRefObject}>入力エリアをフォーカス</button>
+        </div>
+      );
+    };
+
+    const domContainer = document.querySelector("#app");
+    ReactDOM.render(<App />, domContainer);
+  </script>
+</body>
+</html>
