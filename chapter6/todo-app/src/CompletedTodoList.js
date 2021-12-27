@@ -15,7 +15,9 @@ export const CompletedTodoList = ({todos, handleDeleteTodo, handleTransitionToUn
   return (
     <div>
       <h2>完了TODOリスト</h2>
-      {completedTodos}
+      <ul>
+        {completedTodos}
+      </ul>
     </div>
   );
 };
