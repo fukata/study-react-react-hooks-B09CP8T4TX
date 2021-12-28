@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "name": "TEST1",
+      "status": "completed",
+      "id": "ae46305a-74fd-4cd6-8c87-fa9c59376e46"
+    },
+    {
+      "name": "TEST2",
+      "status": "completed",
+      "id": "748dfc56-06d0-42b4-b440-74208e3e820e"
+    }
+  ]
+}
